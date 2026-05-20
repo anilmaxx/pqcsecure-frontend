@@ -622,14 +622,27 @@ export default function App() {
                     ✅ Stego Image Ready — Phase 6: Transmission
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 20 }}>
                     <div>
-                      <div style={{ fontSize: 11, color: "#ffffff60", marginBottom: 8 }}>STEGO IMAGE (looks normal!)</div>
-                      <img
-                        src={stegoImage}
-                        alt="stego"
-                        style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(0,220,140,0.2)" }}
-                      />
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                        <div>
+                          <div style={{ fontSize: 11, color: "#ffffff60", marginBottom: 8 }}>ORIGINAL IMAGE</div>
+                          <img
+                            src={imagePreview}
+                            alt="original"
+                            style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(0,200,220,0.2)" }}
+                          />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 11, color: "#ffffff60", marginBottom: 8 }}>STEGO IMAGE (LSB)</div>
+                          <img
+                            src={stegoImage}
+                            alt="stego"
+                            style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(0,220,140,0.2)" }}
+                          />
+                        </div>
+                      </div>
+                      
                       <button
                         onClick={downloadStego}
                         style={{
@@ -648,6 +661,19 @@ export default function App() {
                       >
                         ⬇ DOWNLOAD STEGO IMAGE
                       </button>
+
+                      <div style={{ marginTop: 16, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                        <div style={{ background: "rgba(0,220,140,0.05)", border: "1px solid rgba(0,220,140,0.15)", borderRadius: 8, padding: "10px" }}>
+                          <div style={{ fontSize: 9, color: "#00dc8c80", marginBottom: 4 }}>LSB PSNR (Quality)</div>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: "#00dc8c" }}>{encryptResult.psnr} dB</div>
+                          <div style={{ fontSize: 9, color: "#ffffff50", marginTop: 4 }}>{'>'} 40 dB is excellent</div>
+                        </div>
+                        <div style={{ background: "rgba(0,220,140,0.05)", border: "1px solid rgba(0,220,140,0.15)", borderRadius: 8, padding: "10px" }}>
+                          <div style={{ fontSize: 9, color: "#00dc8c80", marginBottom: 4 }}>LSB SSIM (Similarity)</div>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: "#00dc8c" }}>{encryptResult.ssim}</div>
+                          <div style={{ fontSize: 9, color: "#ffffff50", marginTop: 4 }}>1.0 is identical</div>
+                        </div>
+                      </div>
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -658,8 +684,6 @@ export default function App() {
                         { label: "AES MODE", value: encryptResult.aes_mode },
                         { label: "ENCAPSULATION TIME", value: `${encryptResult.encaps_time_ms} ms` },
                         { label: "AES ENCRYPTION TIME", value: `${encryptResult.aes_enc_time_ms} ms` },
-                        { label: "PSNR", value: `${encryptResult.psnr} dB` },
-                        { label: "SSIM", value: `${encryptResult.ssim}` },
                         { label: "IV (Base64)", value: encryptResult.iv_b64 },
                         { label: "AUTH TAG (Base64)", value: encryptResult.auth_tag_b64 },
                         { label: "SESSION ID", value: sessionId },
